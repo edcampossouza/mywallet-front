@@ -15,7 +15,10 @@ export default function Login() {
       [name]: value,
     }));
   }
-  function userLogin() {}
+  function userLogin(e) {
+    e.preventDefault();
+    setLoading(true);
+  }
   return (
     <ContainerStyle>
       <span>MyWallet</span>
