@@ -3,6 +3,7 @@ import { ContainerStyle } from "../styles/AuthPages";
 import { UserContext } from "../contexts/contexts";
 import Dots from "./Dots";
 import { Link } from "react-router-dom";
+import { signIn } from "../services/api";
 
 export default function Login() {
   const [loginInfo, setLoginInfo] = useState({ password: "", email: "" });
@@ -18,6 +19,18 @@ export default function Login() {
   function userLogin(e) {
     e.preventDefault();
     setLoading(true);
+    signIn(
+      loginInfo,
+      (response) => {
+        setLoading(false);
+        setUser(response);
+        alert("Autenticado com sucesso");
+      },
+      (err) => {
+        setLoading(false);
+        alert(err);
+      }
+    );
   }
   return (
     <ContainerStyle>
@@ -48,7 +61,7 @@ export default function Login() {
         </button>
       </form>
       <Link to="/sign-up">
-        <a data-test="signup-link">{lang.SIGNUP_LINK}</a>
+        <p data-test="signup-link">{lang.SIGNUP_LINK}</p>
       </Link>
     </ContainerStyle>
   );

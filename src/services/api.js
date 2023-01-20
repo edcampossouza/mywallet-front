@@ -28,9 +28,10 @@ export async function postAuthenticated(route, payload, onSuccess, onError) {
 
 export async function signIn(credentials, onSuccess, onError) {
   try {
-    const token = await axios.post(`${API_URL}/sign-in`, credentials);
-    localStorage.setItem("token", token);
-    if (onSuccess) onSuccess();
+    const response = await axios.post(`${API_URL}/sign-in`, credentials);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("user", JSON.stringify(response.data));
+    if (onSuccess) onSuccess(response.data);
   } catch (error) {
     if (onError) {
       if (error.response) onError(error.response.data);
@@ -41,8 +42,8 @@ export async function signIn(credentials, onSuccess, onError) {
 
 export async function signUp(userInfo, onSuccess, onError) {
   try {
-    const token = await axios.post(`${API_URL}/sign-up`, userInfo);
-    if (onSuccess) onSuccess();
+    const response = await axios.post(`${API_URL}/sign-up`, userInfo);
+    if (onSuccess) onSuccess(response.data);
   } catch (error) {
     if (onError) {
       if (error.response) onError(error.response.data);

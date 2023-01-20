@@ -23,9 +23,9 @@ export default function Signup() {
     setLoading(true);
     signUp(
       userInfo,
-      () => {
+      (data) => {
         setLoading(false);
-        alert("ok!");
+        alert(data);
       },
       (err) => {
         setLoading(false);
@@ -87,7 +87,7 @@ export default function Signup() {
           {loading ? <Dots /> : lang.SIGNUP_BTN}
         </button>
         <Link to="/">
-          <a data-test="login-link">{lang.LOGIN_LINK}</a>
+          <p data-test="login-link">{lang.LOGIN_LINK}</p>
         </Link>
       </form>
     </ContainerStyle>

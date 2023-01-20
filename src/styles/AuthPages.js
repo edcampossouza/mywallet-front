@@ -48,7 +48,7 @@ export const ContainerStyle = styled.div`
     }
     border-width: 1px;
   }
-  a {
+  p {
     margin-top: 20px;
     color: #fff;
     font-size: 14px;
