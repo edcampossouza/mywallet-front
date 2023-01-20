@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/contexts";
 import { ContainerStyle } from "../styles/AuthPages";
+import { signUp } from "../services/api";
 import Dots from "./Dots";
 import { Link } from "react-router-dom";
 
@@ -9,11 +10,29 @@ export default function Signup() {
     name: "",
     email: "",
     password: "",
-    image: "",
   });
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { lang } = useContext(UserContext);
-  function userSignUp(e) {}
+  async function userSignUp(e) {
+    e.preventDefault();
+    if (userInfo.password !== confirmPassword) {
+      alert("Senhas não conferem!");
+      return;
+    }
+    setLoading(true);
+    signUp(
+      userInfo,
+      () => {
+        setLoading(false);
+        alert("ok!");
+      },
+      (err) => {
+        setLoading(false);
+        alert(err);
+      }
+    );
+  }
   function onChange(e) {
     const { name, value } = e.target;
     setUserInfo((prev) => ({
@@ -26,6 +45,15 @@ export default function Signup() {
     <ContainerStyle>
       <span>MyWallet</span>
       <form onSubmit={userSignUp}>
+        <input
+          placeholder={lang.NAME}
+          name="name"
+          value={userInfo.name}
+          required
+          disabled={loading}
+          onChange={onChange}
+          data-test="user-name-input"
+        />
         <input
           placeholder="email"
           name="email"
@@ -47,22 +75,13 @@ export default function Signup() {
           data-test="password-input"
         />
         <input
-          placeholder={lang.NAME}
-          name="name"
-          value={userInfo.name}
+          placeholder={lang.CONFIRM_PASSWORD}
+          name="confirm-password"
+          type="password"
+          value={confirmPassword}
           required
           disabled={loading}
-          onChange={onChange}
-          data-test="user-name-input"
-        />
-        <input
-          placeholder={lang.PICTURE}
-          name="image"
-          value={userInfo.image}
-          required
-          disabled={loading}
-          onChange={onChange}
-          data-test="user-image-input"
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <button data-test="signup-btn" type="submit" disabled={loading}>
           {loading ? <Dots /> : lang.SIGNUP_BTN}
