@@ -114,7 +114,7 @@ const LogoutIcon = styled(HiOutlineLogout)`
 const EmptyRegistries = styled.div`
   color: #868686;
   background-color: #fff;
-  height: 480px;
+  height: 440px;
   display: flex;
   justify-content: center;
   align-items: center;

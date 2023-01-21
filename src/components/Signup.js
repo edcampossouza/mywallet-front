@@ -55,7 +55,7 @@ export default function Signup() {
           data-test="user-name-input"
         />
         <input
-          placeholder="email"
+          placeholder={lang.EMAIL}
           name="email"
           type="email"
           value={userInfo.email}

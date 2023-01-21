@@ -38,7 +38,7 @@ export default function Login() {
       <span>MyWallet</span>
       <form onSubmit={userLogin}>
         <input
-          placeholder="email"
+          placeholder={lang.EMAIL}
           name="email"
           value={loginInfo.email}
           type="email"
