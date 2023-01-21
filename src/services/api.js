@@ -26,7 +26,10 @@ export async function postAuthenticated(route, payload, onSuccess, onError) {
     });
     if (onSuccess) onSuccess(response.data);
   } catch (error) {
-    if (onError) onError(error);
+    if (onError) {
+      if (error.response) onError(error.response.data);
+      else onError(error);
+    }
   }
 }
 
