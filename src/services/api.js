@@ -5,10 +5,12 @@ const API_URL = process.env.REACT_APP_API_URL;
 export async function getAuthenticated(route, onSuccess, onError) {
   const token = localStorage.getItem("token");
   try {
-    const data = await axios.get(`${API_URL}/${route}`, {
-      Authorization: `Bearer ${token}`,
+    const response = await axios.get(`${API_URL}/${route}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    if (onSuccess) onSuccess(data);
+    if (onSuccess) onSuccess(response.data);
   } catch (error) {
     if (onError) onError(error);
   }
@@ -17,10 +19,12 @@ export async function getAuthenticated(route, onSuccess, onError) {
 export async function postAuthenticated(route, payload, onSuccess, onError) {
   const token = localStorage.getItem("token");
   try {
-    const data = await axios.post(`${API_URL}/${route}`, payload, {
-      Authorization: `Bearer ${token}`,
+    const response = await axios.post(`${API_URL}/${route}`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    if (onSuccess) onSuccess(data);
+    if (onSuccess) onSuccess(response.data);
   } catch (error) {
     if (onError) onError(error);
   }

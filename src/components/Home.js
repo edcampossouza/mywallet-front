@@ -1,13 +1,16 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineLogout } from "react-icons/hi/";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import styled from "styled-components";
 import { UserContext } from "../contexts/contexts";
+import { getAuthenticated } from "../services/api";
 
 export default function Home() {
   const navigate = useNavigate();
   const { user, setUser, lang, logout } = useContext(UserContext);
+  const [registries, setRegistries] = useState([]);
+  const [balance, setBalance] = useState(0);
 
   useEffect(() => {
     if (!user) {
@@ -17,15 +20,65 @@ export default function Home() {
       } else navigate("/");
     }
   }, [user]);
+
+  useEffect(() => {
+    async function fetchRegistries() {
+      getAuthenticated(
+        "registry",
+        (data) => setRegistries(data),
+        (error) => alert(error)
+      );
+    }
+    fetchRegistries();
+  }, []);
+
+  useEffect(() => {
+    const value = registries.reduce(
+      (prev, curr) =>
+        curr.type === "C" ? prev + curr.ammount : prev - curr.ammount,
+      0
+    );
+    setBalance(value);
+  }, [registries]);
+
   return (
     <HomeContainer>
       <h1>
         {lang.HELLO}, {user?.name}
         <LogoutIcon onClick={logout} />
       </h1>
-      <EmptyRegistries>
-        <span>{lang.NO_REGISTRIES_MSG}</span>
-      </EmptyRegistries>
+      {registries.length == 0 ? (
+        <EmptyRegistries>
+          <span>{lang.NO_REGISTRIES_MSG}</span>
+        </EmptyRegistries>
+      ) : (
+        <RegistriesContainer>
+          <RegistriesStyle>
+            {registries.map((registry) => (
+              <RegistryRow type={registry.type}>
+                <span className="registry-details">
+                  <div className="date">
+                    {(() => {
+                      const date = new Date();
+                      date.setTime(registry.datetime);
+                      return date.toLocaleString(lang.LOCALE_STRING, {
+                        day: "2-digit",
+                        month: "2-digit",
+                      });
+                    })()}
+                  </div>
+                  <div className="description">{registry.description}</div>
+                </span>
+                <div className="value">{registry.ammount.toFixed(2)}</div>
+              </RegistryRow>
+            ))}
+          </RegistriesStyle>
+          <BalanceRow type={balance >= 0 ? "C" : "D"}>
+            <span className="text">{lang.BALANCE}</span>
+            <span className="value">{Math.abs(balance).toFixed(2)}</span>
+          </BalanceRow>
+        </RegistriesContainer>
+      )}
       <ButtonsRow>
         <AddButton>
           <PlusIcon />
@@ -69,6 +122,54 @@ const EmptyRegistries = styled.div`
   span {
     max-width: 180px;
     text-align: center;
+  }
+`;
+
+const RegistriesContainer = styled(EmptyRegistries)`
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+`;
+const RegistriesStyle = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  overflow-y: auto;
+`;
+
+const RegistryRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  .registry-details {
+    display: flex;
+  }
+  .date {
+    margin-right: 5px;
+    color: #c6c6c6;
+  }
+  .description {
+    color: #000;
+    white-space: nowrap;
+  }
+  .value {
+    color: ${(props) => (props.type === "D" ? "#C70000" : "#03AC00")};
+  }
+`;
+
+const BalanceRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 10%;
+  max-height: 20px;
+  .text {
+    color: #000;
+    font-weight: bold;
+  }
+  .value {
+    color: ${(props) => (props.type === "D" ? "#C70000" : "#03AC00")};
   }
 `;
 
