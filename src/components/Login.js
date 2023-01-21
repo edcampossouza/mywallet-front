@@ -61,7 +61,7 @@ export default function Login() {
           {loading ? <Dots /> : lang.LOGIN_BTN}
         </button>
       </form>
-      <Link to="/sign-up">
+      <Link to="/cadastro">
         <p data-test="signup-link">{lang.SIGNUP_LINK}</p>
       </Link>
     </ContainerStyle>

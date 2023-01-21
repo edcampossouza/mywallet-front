@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import GlobalStyle from "./styles/GlobalStyles";
 import { useState } from "react";
 import Home from "./components/Home";
+import AddExpense from "./components/AddExpense";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -30,8 +31,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/sign-up" element={<Signup />} />
+            <Route path="/cadastro" element={<Signup />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/nova-saida" element={<AddExpense />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

@@ -8,6 +8,7 @@ import { UserContext } from "../contexts/contexts";
 export default function Home() {
   const navigate = useNavigate();
   const { user, setUser, lang, logout } = useContext(UserContext);
+
   useEffect(() => {
     if (!user) {
       const userLs = localStorage.getItem("user");
@@ -30,7 +31,7 @@ export default function Home() {
           <PlusIcon />
           {lang.NEW_INCOME}
         </AddButton>
-        <AddButton>
+        <AddButton onClick={() => navigate("/nova-saida")}>
           <MinusIcon />
           {lang.NEW_EXPENSE}
         </AddButton>
