@@ -2,10 +2,11 @@ import { useState, useContext } from "react";
 import { ContainerStyle } from "../styles/AuthPages";
 import { UserContext } from "../contexts/contexts";
 import Dots from "./Dots";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../services/api";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({ password: "", email: "" });
   const [loading, setLoading] = useState(false);
   const { setUser, lang } = useContext(UserContext);
@@ -24,7 +25,7 @@ export default function Login() {
       (response) => {
         setLoading(false);
         setUser(response);
-        alert("Autenticado com sucesso");
+        navigate("/home");
       },
       (err) => {
         setLoading(false);
