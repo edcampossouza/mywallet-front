@@ -80,7 +80,7 @@ export default function Home() {
         </RegistriesContainer>
       )}
       <ButtonsRow>
-        <AddButton>
+        <AddButton onClick={() => navigate("/nova-entrada")}>
           <PlusIcon />
           {lang.NEW_INCOME}
         </AddButton>

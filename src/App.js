@@ -34,7 +34,7 @@ function App() {
             <Route path="/cadastro" element={<Signup />} />
             <Route path="/home" element={<Home />} />
             <Route path="/nova-saida" element={<AddExpense type="expense" />} />
-            <Route path="/nova-saida" element={<AddExpense type="income" />} />
+            <Route path="/nova-entrada" element={<AddExpense type="income" />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
