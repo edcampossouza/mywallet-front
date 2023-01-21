@@ -25,4 +25,29 @@ export const pt = {
   BALANCE: "SALDO",
 };
 
-export const en = {};
+export const en = {
+  LOCALE_STRING: "en-US",
+  PASSWORD: "Password",
+  LOGIN_BTN: "Log in",
+  SIGNUP_LINK: "First time here? Sign up!",
+  NAME: "Name",
+  EMAIL: "E-mail",
+  CONFIRM_PASSWORD: "Confirm password",
+  SIGNUP_BTN: "Sign up",
+  LOGIN_LINK: "Already have an account? Log in now!",
+  CANCEL: "Cancel",
+  SAVE: "Save",
+
+  HELLO: "Hello",
+  NO_REGISTRIES_MSG: "You don't have any incomes/expenses yet",
+
+  VALUE: "Value",
+  DESCRIPTION: "Description",
+  NEW_INCOME: "New income",
+  SAVE_INCOME: "Save income",
+
+  NEW_EXPENSE: "New expense",
+  SAVE_EXPENSE: "Save expense",
+
+  BALANCE: "BALANCE",
+};
