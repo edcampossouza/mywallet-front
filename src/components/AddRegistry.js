@@ -2,8 +2,10 @@ import { useContext, useState } from "react";
 import { UserContext } from "../contexts/contexts";
 import InputContainer from "../styles/InputPages.js";
 import { postAuthenticated } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function AddRegistry({ type }) {
+  const navigate = useNavigate();
   const { lang } = useContext(UserContext);
   const [ammount, setAmmount] = useState(0);
   const [description, setDescription] = useState("");
@@ -14,6 +16,7 @@ export default function AddRegistry({ type }) {
       { ammount, description },
       (message) => {
         alert(message);
+        navigate("/home");
       },
       (error) => {
         alert(error);
