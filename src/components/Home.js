@@ -44,8 +44,12 @@ export default function Home() {
   return (
     <HomeContainer>
       <h1>
-        {lang.HELLO}, {user?.name}
-        <LogoutIcon onClick={logout} />
+        <span data-test="user-name">
+          {lang.HELLO}, {user?.name}
+        </span>
+        <button data-test="logout" class="logout">
+          <LogoutIcon onClick={logout} />
+        </button>
       </h1>
       {registries.length === 0 ? (
         <EmptyRegistries>
@@ -55,7 +59,11 @@ export default function Home() {
         <RegistriesContainer>
           <RegistriesStyle>
             {registries.map((registry) => (
-              <RegistryRow type={registry.type} key={registry._id}>
+              <RegistryRow
+                type={registry.type}
+                key={registry._id}
+                data-test="registry-name"
+              >
                 <span className="registry-details">
                   <div className="date">
                     {(() => {
@@ -69,7 +77,7 @@ export default function Home() {
                   </div>
                   <div className="description">{registry.description}</div>
                 </span>
-                <div className="value">
+                <div className="value" data-test="registry-amount">
                   {registry.ammount.toLocaleString(lang.LOCALE_STRING, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
@@ -80,7 +88,7 @@ export default function Home() {
           </RegistriesStyle>
           <BalanceRow type={balance >= 0 ? "C" : "D"}>
             <span className="text">{lang.BALANCE}</span>
-            <span className="value">
+            <span className="value" data-test="total-amount">
               {Math.abs(balance).toLocaleString(lang.LOCALE_STRING, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
@@ -90,11 +98,17 @@ export default function Home() {
         </RegistriesContainer>
       )}
       <ButtonsRow>
-        <AddButton onClick={() => navigate("/nova-entrada")}>
+        <AddButton
+          onClick={() => navigate("/nova-entrada")}
+          data-test="new-income"
+        >
           <PlusIcon />
           {lang.NEW_INCOME}
         </AddButton>
-        <AddButton onClick={() => navigate("/nova-saida")}>
+        <AddButton
+          onClick={() => navigate("/nova-saida")}
+          data-test="new-expense"
+        >
           <MinusIcon />
           {lang.NEW_EXPENSE}
         </AddButton>
@@ -113,6 +127,12 @@ const HomeContainer = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 15px 0;
+  }
+  button.logout {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    font-size: 26px;
   }
 `;
 const LogoutIcon = styled(HiOutlineLogout)`
