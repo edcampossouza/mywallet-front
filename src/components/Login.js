@@ -45,7 +45,7 @@ export default function Login() {
           required
           onChange={onChange}
           disabled={loading}
-          data-test="email-input"
+          data-test="email"
         />
         <input
           placeholder={lang.PASSWORD}
@@ -55,9 +55,9 @@ export default function Login() {
           required
           onChange={onChange}
           disabled={loading}
-          data-test="password-input"
+          data-test="password"
         />
-        <button data-test="login-btn" type="submit" disabled={loading}>
+        <button data-test="sign-in-submit" type="submit" disabled={loading}>
           {loading ? <Dots /> : lang.LOGIN_BTN}
         </button>
       </form>
