@@ -44,14 +44,22 @@ export default function AddRegistry({ type }) {
           })}
           onChange={(e) => setFormattedAmmount(e)}
           required
+          data-test={
+            type === "expense"
+              ? "registry-amount-output"
+              : "registry-amount-input"
+          }
         />
         <input
           placeholder={lang.DESCRIPTION}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
+          data-test={
+            type === "expense" ? "registry-name-output" : "registry-name-input"
+          }
         />
-        <button>
+        <button data-test="registry-save">
           {type === "expense" ? lang.SAVE_EXPENSE : lang.SAVE_INCOME}
         </button>
       </form>
