@@ -19,7 +19,7 @@ export default function Home() {
         setUser(JSON.parse(userLs));
       } else navigate("/");
     }
-  }, [user]);
+  }, [user, setUser, navigate]);
 
   useEffect(() => {
     async function fetchRegistries() {
@@ -47,7 +47,7 @@ export default function Home() {
         {lang.HELLO}, {user?.name}
         <LogoutIcon onClick={logout} />
       </h1>
-      {registries.length == 0 ? (
+      {registries.length === 0 ? (
         <EmptyRegistries>
           <span>{lang.NO_REGISTRIES_MSG}</span>
         </EmptyRegistries>
@@ -55,7 +55,7 @@ export default function Home() {
         <RegistriesContainer>
           <RegistriesStyle>
             {registries.map((registry) => (
-              <RegistryRow type={registry.type}>
+              <RegistryRow type={registry.type} key={registry._id}>
                 <span className="registry-details">
                   <div className="date">
                     {(() => {
