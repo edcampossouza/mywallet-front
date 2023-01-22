@@ -54,7 +54,7 @@ export default function Signup() {
           required
           disabled={loading}
           onChange={onChange}
-          data-test="user-name-input"
+          data-test="name"
         />
         <input
           placeholder={lang.EMAIL}
@@ -64,7 +64,7 @@ export default function Signup() {
           required
           disabled={loading}
           onChange={onChange}
-          data-test="email-input"
+          data-test="email"
         />
         <input
           placeholder={lang.PASSWORD}
@@ -74,7 +74,7 @@ export default function Signup() {
           required
           disabled={loading}
           onChange={onChange}
-          data-test="password-input"
+          data-test="password"
         />
         <input
           placeholder={lang.CONFIRM_PASSWORD}
@@ -83,9 +83,10 @@ export default function Signup() {
           value={confirmPassword}
           required
           disabled={loading}
+          data-test="conf-password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <button data-test="signup-btn" type="submit" disabled={loading}>
+        <button data-test="sign-up-submit" type="submit" disabled={loading}>
           {loading ? <Dots /> : lang.SIGNUP_BTN}
         </button>
         <Link to="/">
