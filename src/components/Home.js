@@ -69,13 +69,23 @@ export default function Home() {
                   </div>
                   <div className="description">{registry.description}</div>
                 </span>
-                <div className="value">{registry.ammount.toFixed(2)}</div>
+                <div className="value">
+                  {registry.ammount.toLocaleString(lang.LOCALE_STRING, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </div>
               </RegistryRow>
             ))}
           </RegistriesStyle>
           <BalanceRow type={balance >= 0 ? "C" : "D"}>
             <span className="text">{lang.BALANCE}</span>
-            <span className="value">{Math.abs(balance).toFixed(2)}</span>
+            <span className="value">
+              {Math.abs(balance).toLocaleString(lang.LOCALE_STRING, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </span>
           </BalanceRow>
         </RegistriesContainer>
       )}
